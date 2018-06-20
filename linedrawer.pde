@@ -72,7 +72,9 @@ abstract class Drawer {
   void Draw() {
     List<PVector> shape = GetShape(GetEndPoints());
     color c = GetColour(shape);
-    DrawPoints(shape, c);
+    if (ShouldDraw(shape, c, dirty, ref)) {
+      DrawPoints(shape, c);
+    }
   }
   float Error(color c1, color c2)
   {
