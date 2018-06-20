@@ -6,13 +6,14 @@ void settings() {
 }
 
 void setup() {
+  noCursor();
   imageMode(CENTER);
   background(20,26,29);
   // PImage ref = loadImage("forest.jpg");
 
   PImage ref = LoadImage();
 
-  drawer = new LineDrawer(ref);
+  drawer = new SquareDrawer(ref);
 }
 
 void draw() {
