@@ -1,6 +1,6 @@
 import java.util.List;
 Drawer drawer;
-
+int started_minute = 0;
 void settings() {
   fullScreen();
 }
@@ -10,14 +10,22 @@ void setup() {
   imageMode(CENTER);
   background(20,26,29);
   // PImage ref = loadImage("forest.jpg");
-
-  PImage ref = LoadImage();
-
-  drawer = new SquareDrawer(ref);
+  StartNew();
+  
 }
 
 void draw() {
   drawer.Draw();
+  if (hour()*60 + minute() - started_minute == 0) {
+    StartNew();
+  }
+}
+
+void StartNew() {
+  PImage ref = LoadImage();
+
+  drawer = new LineDrawer(ref);
+  started_minute = hour()*60 + minute() - 1;
 }
 
 PImage LoadImage() 
@@ -33,6 +41,14 @@ PImage LoadImage()
     img.resize(0, height);
   }
   return img;
+}
+
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == RIGHT) {
+      StartNew();
+    }
+  }
 }
 
 abstract class Drawer {
