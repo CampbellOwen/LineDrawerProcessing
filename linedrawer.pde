@@ -7,12 +7,14 @@ void settings() {
 }
 
 void setup() {
+  if (args == null) {
+    System.out.println("Please provide an images folder path");
+    exit();
+  }
   noCursor();
   imageMode(CENTER);
   background(20,26,29);
-  // PImage ref = loadImage("forest.jpg");
   StartNew();
-  
 }
 
 void draw() {
@@ -23,8 +25,7 @@ void draw() {
 }
 
 void StartNew() {
-  // PImage ref = LoadImage();
-  PImage ref = loadImage("./images/lake22.jpg");
+  PImage ref = LoadImage();
 
   if( ref.width > ref.height ) {
     ref.resize(width, 0);
@@ -39,7 +40,7 @@ void StartNew() {
 
 PImage LoadImage() 
 {
-  String path = sketchPath() + "/images";
+  String path = args[0];
   File[] files = listFiles(path);
   File f = files[ (int)random(files.length) ];
   PImage img = loadImage(f.getAbsolutePath());
