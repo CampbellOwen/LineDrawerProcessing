@@ -1,6 +1,7 @@
 import java.util.List;
 Drawer drawer;
-int started_minute = 0;
+long last_millis;
+int rollover_time = 8 * 60 * 60 * 1000;
 void settings() {
   fullScreen();
 }
@@ -16,16 +17,24 @@ void setup() {
 
 void draw() {
   drawer.Draw();
-  if (hour()*60 + minute() - started_minute == 0) {
+  if (System.currentTimeMillis() - last_millis > rollover_time) {
     StartNew();
   }
 }
 
 void StartNew() {
-  PImage ref = LoadImage();
+  // PImage ref = LoadImage();
+  PImage ref = loadImage("./images/lake22.jpg");
+
+  if( ref.width > ref.height ) {
+    ref.resize(width, 0);
+  }
+  else {
+    ref.resize(0, height);
+  }
 
   drawer = new LineDrawer(ref);
-  started_minute = hour()*60 + minute() - 1;
+  last_millis = System.currentTimeMillis();;
 }
 
 PImage LoadImage() 
@@ -34,12 +43,6 @@ PImage LoadImage()
   File[] files = listFiles(path);
   File f = files[ (int)random(files.length) ];
   PImage img = loadImage(f.getAbsolutePath());
-  if( img.width > img.height ) {
-    img.resize(width, 0);
-  }
-  else {
-    img.resize(0, height);
-  }
   return img;
 }
 
