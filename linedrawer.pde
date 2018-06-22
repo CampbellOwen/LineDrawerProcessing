@@ -1,6 +1,7 @@
 import java.util.List;
 Drawer drawer;
 long last_millis;
+boolean use_lines = true;
 int rollover_time = 8 * 60 * 60 * 1000;
 void settings() {
   fullScreen();
@@ -33,7 +34,7 @@ void StartNew() {
     ref.resize(0, height);
   }
 
-  drawer = new LineDrawer(ref);
+  drawer = use_lines ? new LineDrawer(ref) : new SquareDrawer(ref);
   last_millis = System.currentTimeMillis();;
 }
 
@@ -49,6 +50,10 @@ PImage LoadImage()
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == RIGHT) {
+      StartNew();
+    }
+    else if( keyCode == UP) {
+      use_lines = !use_lines;
       StartNew();
     }
   }
