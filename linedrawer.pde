@@ -13,7 +13,6 @@ void setup() {
   }
   noCursor();
   imageMode(CENTER);
-  background(20,26,29);
   StartNew();
 }
 
@@ -26,7 +25,7 @@ void draw() {
 
 void StartNew() {
   PImage ref = LoadImage();
-
+  background(0,5,5);
   if( ref.width > ref.height ) {
     ref.resize(width, 0);
   }
